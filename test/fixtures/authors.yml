@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  authorKey: MyString
+  name: MyString
+  personalName: MyString
+  bio: MyText
+  cover_s: MyText
+  cover_m: MyText
+  cover_l: MyText
+
+two:
+  authorKey: MyString
+  name: MyString
+  personalName: MyString
+  bio: MyText
+  cover_s: MyText
+  cover_m: MyText
+  cover_l: MyText
