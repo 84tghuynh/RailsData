@@ -15,9 +15,9 @@ require "json"
 # link = "http://openlibrary.org/search.json?publisher=%22Ballantine%20Books%22"
 # books = link_fetch(build_link_publisher("Wadsworth Thomson Learning"))
 
-BookAuthor.delete_all
-Book.delete_all
-Author.delete_all
+# BookAuthor.delete_all
+# Book.delete_all
+# Author.delete_all
 # Category.delete_all
 
 def link_fetch(link)
@@ -235,6 +235,21 @@ def check_associtaion
 end
 # check_associtaion
 
+def create_customer_faker
+  puts "Creates 100 customer"
+
+  100.times do
+    Customer.create(name:           Faker::Name.unique.name,
+                    street_address: Faker::Address.unique.street_name,
+                    state:          Faker::Address.state,
+                    country:        Faker::Address.country,
+                    postcode:       Faker::Address.postcode,
+                    latitude:       Faker::Address.latitude,
+                    longtitude:     Faker::Address.longitude)
+  end
+end
+create_customer_faker
+
 def get_create_books_authors
   # publishers = ["Ballantine Books", "Pearson Prentice Hall", "Wadsworth Thomson Learning"]
   publishers = ["Ballantine Books"]
@@ -266,4 +281,4 @@ def get_create_books_authors
   puts "Created BookAuthor: #{BookAuthor.count}"
 end
 
-get_create_books_authors
+# get_create_books_authors
