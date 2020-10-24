@@ -16,8 +16,10 @@ require "json"
 # books = link_fetch(build_link_publisher("Wadsworth Thomson Learning"))
 
 # BookAuthor.delete_all
+# RentalBook.delete_all
 # Book.delete_all
 # Author.delete_all
+
 # Category.delete_all
 
 def link_fetch(link)
@@ -248,7 +250,28 @@ def create_customer_faker
                     longtitude:     Faker::Address.longitude)
   end
 end
-create_customer_faker
+# create_customer_faker
+
+def create_rentalbook
+  puts "Populates 100 rentalbooks records"
+
+  customer_count = Customer.count
+  book_count = Book.count
+
+  100.times do
+    random_offset_customer = rand(customer_count)
+    customer = Customer.offset(random_offset_customer).first
+
+    random_offset_book = rand(book_count)
+    book = Book.offset(random_offset_book).first
+
+    RentalBook.create(book_id:     book.id,
+                      customer_id: customer.id,
+                      rental_date: Faker::Time.between(from: DateTime.now - 40, to: DateTime.now))
+  end
+end
+
+# create_rentalbook
 
 def get_create_books_authors
   # publishers = ["Ballantine Books", "Pearson Prentice Hall", "Wadsworth Thomson Learning"]
@@ -281,4 +304,31 @@ def get_create_books_authors
   puts "Created BookAuthor: #{BookAuthor.count}"
 end
 
+# BookAuthor.delete_all
+# RentalBook.delete_all
+# Book.delete_all
+# Author.delete_all
+
+####################################################
+#  How to populate the data
+####################################################
+# Step 1: Populates 10 Categories - To prepare category_id for Step 3
+# create_category_faker
+
+# Step 2: Populates 100 Customers - To prepare customer_id for step 4
+# create_customer_faker
+
+# Step 3:  Populates books, authors, bookauthors
+
+########################################
+#  Endpoints
+#   + build_link_publisher(publisher) : "http://openlibrary.org/search.json?publisher=#{publisher}"
+#   + build_link_book(isbn): "https://openlibrary.org/api/books?bibkeys=ISBN:#{isbn}&jscmd=details&format=json"
+#   + build_link_author(authorKey): "https://openlibrary.org/authors/#{authorKey}.json"
+#   + build_link_work(work): (work: /works/OL103196W)   "https://openlibrary.org#{work}.json"
+#
+##########################################
 # get_create_books_authors
+
+# Step 4: Populates RentalBooks
+# create_rentalbook
