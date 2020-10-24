@@ -4,5 +4,5 @@ class Book < ApplicationRecord
 
   validates :ISBN, :title, :bookURL, presence: true
   validates :ISBN, uniqueness: true
-  validates :numberOfPages, numericality: { only_integer: true }
+  validates :numberOfPages, numericality: { only_integer: true }, allow_nil: true
 end
