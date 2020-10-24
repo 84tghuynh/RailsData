@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book: one
+  customer: one
+  rental_date: 2020-10-24 12:07:48
+
+two:
+  book: two
+  customer: two
+  rental_date: 2020-10-24 12:07:48
