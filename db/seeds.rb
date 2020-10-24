@@ -18,6 +18,7 @@ require "json"
 BookAuthor.delete_all
 Book.delete_all
 Author.delete_all
+# Category.delete_all
 
 def link_fetch(link)
   JSON.parse(URI.open(link).read)
@@ -128,7 +129,7 @@ end
 ##################################################
 # Populating functions
 ##################################################
-def get_author_details(authorKey)
+def get_author_details_and_create(authorKey)
   unless authorKey.nil?
 
     author_details = link_fetch(build_link_author(authorKey))
@@ -170,7 +171,7 @@ def get_description_from_work(work)
   end
 end
 
-def get_book_details(book)
+def get_book_details_and_create(book)
   book_details = link_fetch(build_link_book(book["isbn"][0]))
 
   work = book_details["ISBN:#{book['isbn'][0]}"]["details"]["works"][0]["key"]
@@ -198,21 +199,43 @@ end
 def create_book(isbn, title, description, publisher, publishDate, numberOfPages, bookURL, cover_s, cover_m, cover_l)
   puts "Create book"
 
-  # Find the isbn or create a new one with a
-  Book.find_or_create_by(ISBN: isbn) do |book|
-    book.title = title
-    book.description = description
-    book.publisher = publisher
-    book.publishDate = publishDate
-    book.numberOfPages = numberOfPages
-    book.bookURL = bookURL
-    book.cover_s = cover_s
-    book.cover_m = cover_m
-    book.cover_l = cover_l
+  random_offset = rand(10)
+  category = Category.offset(random_offset).first
+
+  if category&.valid?
+    # Find the isbn or create a new one with a
+    category.books.find_or_create_by(ISBN: isbn) do |book|
+      book.title = title
+      book.description = description
+      book.publisher = publisher
+      book.publishDate = publishDate
+      book.numberOfPages = numberOfPages
+      book.bookURL = bookURL
+      book.cover_s = cover_s
+      book.cover_m = cover_m
+      book.cover_l = cover_l
+    end
   end
 end
 
-def get_list_book_details
+def create_category_faker
+  puts "Create Categories"
+  10.times do
+    Category.create(name: Faker::Book.genre)
+  end
+end
+
+# create_category_faker
+
+def check_associtaion
+  puts "Check Associations"
+  Book.first.authors.each do |a|
+    puts a.name
+  end
+end
+# check_associtaion
+
+def get_create_books_authors
   # publishers = ["Ballantine Books", "Pearson Prentice Hall", "Wadsworth Thomson Learning"]
   publishers = ["Ballantine Books"]
   i = 0
@@ -225,11 +248,11 @@ def get_list_book_details
       puts i.to_s
       # puts "Author: #{book['author_key'][0]} "
       # get_author_details(book["author_key"][0])
-      book = get_book_details(b)
+      book = get_book_details_and_create(b)
       j = 0
       b["author_key"].each do |a|
         puts "#{j}. Author: #{a} "
-        author = get_author_details(a)
+        author = get_author_details_and_create(a)
 
         BookAuthor.create(book_id: book.id, author_id: author.id, ISBN: b["isbn"][0], authorKey: a)
         j += 1
@@ -243,13 +266,4 @@ def get_list_book_details
   puts "Created BookAuthor: #{BookAuthor.count}"
 end
 
-# get_list_book_details
-
-def check_associtaion
-  puts "Check Associations"
-  Book.first.authors.each do |a|
-    puts a.name
-  end
-end
-
-# check_associtaion
+get_create_books_authors
