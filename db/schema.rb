@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_24_150728) do
+ActiveRecord::Schema.define(version: 2020_10_24_170748) do
 
   create_table "authors", force: :cascade do |t|
     t.string "authorKey"
@@ -58,7 +58,31 @@ ActiveRecord::Schema.define(version: 2020_10_24_150728) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "street_address"
+    t.string "state"
+    t.string "country"
+    t.string "postcode"
+    t.string "latitude"
+    t.string "longtitude"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "rental_books", force: :cascade do |t|
+    t.integer "book_id", null: false
+    t.integer "customer_id", null: false
+    t.datetime "rental_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_rental_books_on_book_id"
+    t.index ["customer_id"], name: "index_rental_books_on_customer_id"
+  end
+
   add_foreign_key "book_authors", "authors"
   add_foreign_key "book_authors", "books"
   add_foreign_key "books", "categories"
+  add_foreign_key "rental_books", "books"
+  add_foreign_key "rental_books", "customers"
 end
