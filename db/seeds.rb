@@ -15,9 +15,9 @@ require "json"
 # link = "http://openlibrary.org/search.json?publisher=%22Ballantine%20Books%22"
 # books = link_fetch(build_link_publisher("Wadsworth Thomson Learning"))
 
-# BookAuthor.delete_all
-# Book.delete_all
-# Author.delete_all
+BookAuthor.delete_all
+Book.delete_all
+Author.delete_all
 
 def link_fetch(link)
   JSON.parse(URI.open(link).read)
@@ -252,4 +252,4 @@ def check_associtaion
   end
 end
 
-check_associtaion
+# check_associtaion

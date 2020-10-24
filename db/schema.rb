@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_23_041546) do
+ActiveRecord::Schema.define(version: 2020_10_24_150728) do
 
   create_table "authors", force: :cascade do |t|
     t.string "authorKey"
@@ -48,8 +48,17 @@ ActiveRecord::Schema.define(version: 2020_10_23_041546) do
     t.text "cover_l"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_books_on_category_id"
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "book_authors", "authors"
   add_foreign_key "book_authors", "books"
+  add_foreign_key "books", "categories"
 end
