@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="navbar-brand">Rails Data</div>
+  <div class="navbar-nav">
+      <%= link_to 'Home', root_path, class:"nav-link active" %>
+      <%= link_to 'About Data', home_about_data_path, class:"nav-link active" %>
+  </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
+  <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</nav>
