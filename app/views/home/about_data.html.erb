@@ -1,0 +1,54 @@
+<div class="row">
+  <p class="h2 text-primary">About Data</p>
+</div>
+<div class="row">
+  <p>The RailsData collects data from APIs of <a href="https://openlibrary.org/developers/api" target="_blank" >Open Library</a> </p>
+</div>
+<div class="row">
+  <p class="h3 text-primary">How to populate the data</p>
+</div>
+<div class="row">
+  <p>In <span class="text-success">seed.db </span> script, comment out the functions to run in each step.
+  Only one function is commented out for each step</p>
+</div>
+<div class="row">
+  <p class="h4"><span class="text-primary">Step 1:</span> Populates 10 Categories - To prepare category_id for Step 3</p>
+</div>
+<div class="row">
+  <p>Run: <span class="text-danger">create_category_faker</span></p>
+</div>
+<div class="row">
+  <p class="h4"><span class="text-primary">Step 2:</span> Populates 100 Customers - To prepare customer_id for step 4</p>
+</div>
+<div class="row">
+  <p>Run: <span class="text-danger">create_customer_faker</span></p>
+</div>
+<div class="row">
+  <p class="h4"><span class="text-primary">Step 3:</span> Populates books, authors, bookauthors</p>
+</div>
+<div class="row">
+  <p class="h5 text-success">Endpoints</p>
+</div>
+<div class="row">
+  <ol>
+    <li><span class="text-info">build_link_publisher(publisher):</span> http://openlibrary.org/search.json?publisher=#{publisher}</li>
+    <li><span class="text-info">build_link_book(isbn):</span> https://openlibrary.org/api/books?bibkeys=ISBN:#{isbn}&jscmd=details&format=json</li>
+    <li><span class="text-info">build_link_author(authorKey):</span> https://openlibrary.org/authors/#{authorKey}.json</li>
+    <li><span class="text-info">build_link_work(work) (ex: work: /works/OL103196W):</span> https://openlibrary.org#{work}.json</li>
+  </ol>
+</div>
+<div class="row">
+  <p>Run: <span class="text-danger">get_create_books_authors</span><p>
+</div>
+<div class="row">
+  <p class="h4"><span class="text-primary">Step 4:</span> Populates RentalBooks</p>
+</div>
+<div class="row">
+      <p>Run: <span class="text-danger">create_rentalbook</span></p>
+</div>
+<div class="row">
+   <p class="h2 text-primary">ERD Diagram</p>
+</div>
+<div class="row">
+      <p><%= image_tag "erd.png",  alt: "ERD diagram" %></p>
+</div>
