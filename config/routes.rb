@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'books/index'
+  get 'books/show'
   # get "authors/index"
   # get "authors/show"
   get "authors",     to: "authors#index", as: "authors" # products_path
