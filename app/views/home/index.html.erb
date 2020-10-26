@@ -1,30 +1,27 @@
 <h2 class="h2 text-primary">Books Library</h2>
 <div class="container pb-5">
-<div class="row ">
-  <div class="col">
+  <div class="row ">
+    <div class="col">
       <ol class="list-group">
           <li class="list-group-item active font-weight-bold text-uppercase">First 10 Books</li>
         <% @books.each do |book| %>
           <li class="list-group-item">
-              <%= link_to book.title, '#' ,class:"text-dark" %>
+              <%= link_to book.title, book ,class:"text-dark" %>
           </li>
-
         <% end %>
       </ol>
-  </div>
+    </div>
 
-  <div class="col">
+    <div class="col">
         <ol class="list-group">
           <li class="list-group-item active font-weight-bold text-uppercase">First 10 Authors</li>
         <% @authors.each do |author| %>
           <li class="list-group-item">
               <%= link_to author.name, author ,class:"text-dark" %>
           </li>
-
         <% end %>
       </ol>
-
+    </div>
   </div>
-</div>
 </div>
 
