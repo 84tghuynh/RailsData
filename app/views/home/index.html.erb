@@ -18,7 +18,7 @@
           <li class="list-group-item active font-weight-bold text-uppercase">First 10 Authors</li>
         <% @authors.each do |author| %>
           <li class="list-group-item">
-              <%= link_to author.name, '#' ,class:"text-dark" %>
+              <%= link_to author.name, author ,class:"text-dark" %>
           </li>
 
         <% end %>
