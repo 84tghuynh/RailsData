@@ -4,7 +4,7 @@ class HomeController < ApplicationController
                  .limit(10)
 
     @authors = Author.all
-                     .litmit(10)
+                     .limit(10)
   end
 
   def about_data; end
