@@ -3,9 +3,73 @@
   <div class="row">
     <div class="col">
       <ul>
-        <li><%=@customer.longtitude%>
+        <li><%=@customer.latitude%>
         <li><%=@customer.longtitude%>
       </ul>
     </div>
   </div>
+<div class="row">
+  <div id='map'></div>
+
 </div>
+
+</div>
+
+
+
+<script>
+    var lat = <%=@customer.latitude.to_f%>;
+    var lng = <%=@customer.longtitude.to_f%>;
+
+    //alert("lat: " + lat + " lng:" + lng);
+    L.mapbox.accessToken = 'pk.eyJ1IjoidGh1eW5oNTgiLCJhIjoiY2tma2w1aHY3MHRqMzJycGp1aXc4MngxcSJ9.kT_97Jguu0jfCzo477IARA';
+    var map = L.mapbox.map('map')
+        .setView([lat , lng], 2)
+        .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+
+      L.marker([lat , lng], {
+        icon: L.mapbox.marker.icon({
+            'marker-size': 'large',
+            'marker-symbol': 'marker',
+            'marker-color': '#ff0000',
+        })
+    }).addTo(map);
+
+
+
+//getEvents(map);
+
+function getEvents(map) {
+   alert("get the events");
+  $.ajax({
+    dataType: 'text',
+    url: '/customers/8.json',
+    success:function(events) {
+      alert('siccess');
+      var geojson = $.parseJSON(events);
+      console.log(geojson);
+      console.log('dddd');
+      console.log(geojson[0].geometry.coordinates[0]);
+
+      map.featureLayer.setGeoJSON({
+        type: "FeatureCollection",
+        features: geojson
+      });
+
+    },
+    error:function() {
+
+      alert("Could not load the events");
+    }
+  });
+}
+
+
+
+
+</script>
+
+
+
+
+

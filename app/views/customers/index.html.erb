@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col">
        <ol class="list-group">
-          <li class="list-group-item active font-weight-bold text-uppercase">All Authors</li>
+          <li class="list-group-item active font-weight-bold text-uppercase">All Customers</li>
           <% @customers.each_with_index do |customer, index| %>
             <li class="list-group-item">
                 <%= index %>. <%= link_to customer.name, customer ,class:"text-dark" %>
