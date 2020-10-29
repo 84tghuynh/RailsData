@@ -5,6 +5,10 @@ class HomeController < ApplicationController
 
     @authors = Author.all
                      .limit(10)
+    @customers = Customer.all
+                         .limit(10)
+
+    @categories = Category.all
   end
 
   def about_data; end

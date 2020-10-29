@@ -1,2 +1,44 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+
+<div class="container pb-5">
+<h2 class="h2 text-primary"><%= @book.title %></h2>
+  <div class="row">
+    <div class="col-3">
+      <img src="<%= @book.cover_l  %>" class="img-fluid rounded" alt="Cover Large Image">
+    </div>
+  <div class="col-9">
+      <h5 class="h5 text-dark">ISBN</h5>
+      <p class="text-info"><%= @book.ISBN%></p>
+
+      <h5 class="h5 text-dark">Publisher</h5>
+      <p class="text-info"><%= @book.publisher%></p>
+
+      <h5 class="h5 text-dark">Publish Date</h5>
+      <p class="text-info"><%= @book.publishDate%></p>
+
+      <h5 class="h5 text-dark">Number of Pages</h5>
+      <p class="text-info"><%= @book.numberOfPages%></p>
+
+      <h5 class="h5 text-dark">Category</h5>
+      <p class="text-info"><%= link_to @book.category.name, @book.category, class:"text-success" %></p>
+
+      <h5 class="h5 text-dark">Authors</h5>
+      <p class="text-info">
+           <% @book.authors.each_with_index do |author, i| %>
+              <% if i == 0 %>
+                  <%= link_to author.name, author ,class:"text-success" %>
+              <% else %>
+                  , <%= link_to author.name, author ,class:"text-success" %>
+              <% end %>
+          <% end %>
+      </p>
+
+      <h5 class="h5 text-dark">Description</h5>
+      <p class="text-info"><%= @book.description%></p>
+
+      <a href="<%= @book.bookURL%>" target="_blank" class="btn btn-primary">Read Book</a>
+
+
+    </div>
+  </div>
+</div>
+

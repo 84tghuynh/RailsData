@@ -5,7 +5,6 @@
       <%= link_to 'About Data', home_about_data_path, class:"nav-link active font-weight-bold text-uppercase" %>
       <%= link_to 'Books', books_path, class:"nav-link active font-weight-bold text-uppercase" %>
       <%= link_to 'Authors', authors_path, class:"nav-link active font-weight-bold text-uppercase" %>
-      <%#= link_to 'Customers', customers_path, class:"nav-link active font-weight-bold text-uppercase" %>
   </div>
   <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
 
@@ -15,9 +14,8 @@
         <div class="input-group">
             <select class="custom-select" id="categorySelect" name="category">
               <option value="0">All</option>
-              <%= options_from_collection_for_select(Category.all, :id, :name) %>%
+              <%= options_from_collection_for_select(Category.all, :id, :name) %>
             </select>
-            <%# <%= collection_select(:category,:id, Category.all, :id, :name) %>
             <div class="input-group-append">
               <label class="input-group-text" for="categorySelect">Categories</label>
             </div>

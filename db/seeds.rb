@@ -276,6 +276,7 @@ end
 def get_create_books_authors
   # publishers = ["Ballantine Books", "Pearson Prentice Hall", "Wadsworth Thomson Learning"]
   publishers = ["Ballantine Books"]
+  # publishers = ["Pearson Prentice Hall"]
   i = 0
   publishers.each do |publisher|
     books = link_fetch(build_link_publisher(publisher))
@@ -304,10 +305,10 @@ def get_create_books_authors
   puts "Created BookAuthor: #{BookAuthor.count}"
 end
 
-# BookAuthor.delete_all
-# RentalBook.delete_all
-# Book.delete_all
-# Author.delete_all
+#BookAuthor.delete_all
+#RentalBook.delete_all
+#Book.delete_all
+#Author.delete_all
 
 ####################################################
 #  How to populate the data
@@ -328,7 +329,8 @@ end
 #   + build_link_work(work): (work: /works/OL103196W)   "https://openlibrary.org#{work}.json"
 #
 ##########################################
-# get_create_books_authors
+
+ get_create_books_authors
 
 # Step 4: Populates RentalBooks
 # create_rentalbook

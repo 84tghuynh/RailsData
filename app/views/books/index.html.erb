@@ -2,6 +2,11 @@
 <div class="container pb-5">
   <div class="row">
     <div class="col">
+      <%= pagy_bootstrap_nav(@pagy).sub('class="pagination"', 'class="pagination  justify-content-end"').html_safe  %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
        <ol class="list-group">
           <li class="list-group-item active font-weight-bold text-uppercase">All Books</li>
 
@@ -13,5 +18,9 @@
       </ol>
     </div>
   </div>
-
+   <div class="row pt-3">
+    <div class="col">
+      <%= pagy_bootstrap_nav(@pagy).sub('class="pagination"', 'class="pagination  justify-content-end"').html_safe  %>
+    </div>
+  </div>
 </div>

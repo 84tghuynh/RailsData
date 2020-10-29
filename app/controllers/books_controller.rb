@@ -1,9 +1,11 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.all
+    @pagy, @books = pagy(Book.all, items: 10)
   end
 
-  def show; end
+  def show
+    @book = Book.find(params[:id])
+  end
 
   def search
     wildcard_search = "%#{params[:keywords]}%"
