@@ -1,2 +1,45 @@
 
+<div class="container pb-5">
+<h2 class="h2 text-primary"><%= @author.name %></h2>
+  <div class="row">
+    <div class="col-3">
+      <% if @author.cover_l != ''%>
+        <img src="<%= @author.cover_l  %>" class="img-fluid rounded" alt="Cover Large Image">
+      <% else %>
+        <%= image_tag "no_image.png",  alt: "No Image", class: "img-fluid rounded" %>
+      <% end %>
+    </div>
+  <div class="col-9">
+      <h5 class="h5 text-dark">Author Key</h5>
+      <p class="text-info"><%= @author.authorKey%></p>
+
+      <h5 class="h5 text-dark">Personal Name</h5>
+      <p class="text-info"><%= @author.personalName%></p>
+
+      <h5 class="h5 text-dark">Books</h5>
+      <p class="text-info">
+           <% @author.books.each_with_index do |book, i| %>
+              <% if i == 0 %>
+                  <%= link_to book.title, book ,class:"text-success" %>
+              <% else %>
+                  , <%= link_to book.title, book ,class:"text-success" %>
+              <% end %>
+          <% end %>
+      </p>
+
+      <h5 class="h5 text-dark">Biography</h5>
+       <% if @author.bio %>
+        <p class="text-info"><%= @author.bio%></p>
+      <% else %>
+        <p class="text-info">No Biography for <%= @author.name %> author. </p>
+      <% end %>
+
+
+      <a href="http://openlibrary.org/authors/<%=@author.authorKey%>" target="_blank" class="btn btn-primary">Read Details</a>
+
+    </div>
+  </div>
+</div>
+
+
 
