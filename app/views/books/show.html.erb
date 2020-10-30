@@ -6,7 +6,7 @@
       <% if @book.cover_l != ''%>
         <img src="<%= @book.cover_l  %>" class="img-fluid rounded" alt="Cover Large Image">
       <% else %>
-        <%= image_tag "no_image.png",  alt: "ERD diagram", class: "img-fluid rounded" %>
+        <%= image_tag "no_image.png",  alt: "No Image", class: "img-fluid rounded" %>
       <% end %>
     </div>
   <div class="col-9">
