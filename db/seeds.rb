@@ -174,6 +174,7 @@ def get_description_from_work(work)
 end
 
 def get_book_details_and_create(book)
+  puts "get_book_details_and_create ISBN #{book['isbn'][0]}"
   book_details = link_fetch(build_link_book(book["isbn"][0]))
 
   work = book_details["ISBN:#{book['isbn'][0]}"]["details"]["works"][0]["key"]
@@ -195,6 +196,11 @@ def get_book_details_and_create(book)
     cover_m = "http://covers.openlibrary.org/b/id/#{book_details["ISBN:#{book['isbn'][0]}"]['details']['covers'][0]}-M.jpg"
     cover_l = "http://covers.openlibrary.org/b/id/#{book_details["ISBN:#{book['isbn'][0]}"]['details']['covers'][0]}-L.jpg"
   end
+
+  # puts "title: #{title}"
+  # puts "work: #{work}"
+  # puts "description: #{description}"
+
   create_book(isbn, title, description, publisher, publishDate, numberOfPages, bookURL, cover_s, cover_m, cover_l)
 end
 
@@ -203,7 +209,7 @@ def create_book(isbn, title, description, publisher, publishDate, numberOfPages,
 
   random_offset = rand(10)
   category = Category.offset(random_offset).first
-
+  # puts "------Before Find or create category #{category.name}, then create book"
   if category&.valid?
     # Find the isbn or create a new one with a
     category.books.find_or_create_by(ISBN: isbn) do |book|
@@ -223,7 +229,7 @@ end
 def create_category_faker
   puts "Create Categories"
   10.times do
-    Category.create(name: Faker::Book.genre)
+    Category.create(name: Faker::Book.unique.genre, description: Faker::Quote.unique.matz)
   end
 end
 
@@ -277,6 +283,7 @@ def get_create_books_authors
   # publishers = ["Ballantine Books", "Pearson Prentice Hall", "Wadsworth Thomson Learning"]
   publishers = ["Ballantine Books"]
   # publishers = ["Pearson Prentice Hall"]
+  # publishers = ["Wadsworth Thomson Learning"]
   i = 0
   publishers.each do |publisher|
     books = link_fetch(build_link_publisher(publisher))
@@ -287,14 +294,20 @@ def get_create_books_authors
       puts i.to_s
       # puts "Author: #{book['author_key'][0]} "
       # get_author_details(book["author_key"][0])
-      book = get_book_details_and_create(b)
-      j = 0
-      b["author_key"].each do |a|
-        puts "#{j}. Author: #{a} "
-        author = get_author_details_and_create(a)
+      new_book = get_book_details_and_create(b)
 
-        BookAuthor.create(book_id: book.id, author_id: author.id, ISBN: b["isbn"][0], authorKey: a)
-        j += 1
+      unless new_book.nil?
+        j = 0
+        b["author_key"].each do |a|
+          puts "#{j}. Author: #{a} "
+          author = get_author_details_and_create(a)
+
+          # puts "Create BookAuthors #{book.id}"
+          # unless book.nil?
+          BookAuthor.create(book_id: new_book.id, author_id: author.id, ISBN: b["isbn"][0], authorKey: a)
+          # end
+          j += 1
+        end
       end
 
       i += 1
@@ -305,10 +318,26 @@ def get_create_books_authors
   puts "Created BookAuthor: #{BookAuthor.count}"
 end
 
-#BookAuthor.delete_all
-#RentalBook.delete_all
-#Book.delete_all
-#Author.delete_all
+def create_bookauthors
+  puts "Populates 100 BookAuthors records"
+
+  Book.all.each do |book|
+    puts "Books: #{book.ISBN}"
+    book_details = link_fetch(build_link_book(book.ISBN))
+
+    puts book_details["ISBN:#{book.ISBN}"]["details"]["authors"][0]
+
+    # each do |author|
+    #  puts "Author: #{author.key}"
+    # end
+  end
+end
+
+# BookAuthor.delete_all
+# RentalBook.delete_all
+# Book.delete_all
+# Author.delete_all
+# Category.delete_all
 
 ####################################################
 #  How to populate the data
@@ -330,7 +359,7 @@ end
 #
 ##########################################
 
- get_create_books_authors
+# get_create_books_authors
 
 # Step 4: Populates RentalBooks
-# create_rentalbook
+create_rentalbook
