@@ -1,2 +1,48 @@
-<h1>Categories#index</h1>
-<p>Find me in app/views/categories/index.html.erb</p>
+<h2 class="h2 text-primary">List of All Categories</h2>
+
+<div class="container pb-5">
+  <div class="row rounded text-white bg-primary font-weight-bold text-uppercase py-2">
+    <div class="col-1 text-justify ">
+      No
+    </div>
+    <div class="col-2 text-justify">
+      Name
+    </div>
+    <div class="col-3 text-justify">
+      Description
+    </div>
+    <div class="col-6 text-justify">
+      Containing Books
+    </div>
+  </div>
+
+  <% @categories.each do |category| %>
+      <div class="row border-bottom border-secondary py-2">
+        <div class="col-1 text-justify">
+          <%=category.id %>
+        </div>
+
+        <div class="col-2 text-justify">
+          <%=link_to category.name, category ,class:"text-success" %>
+        </div>
+
+        <div class="col-3 text-justify">
+            <%=link_to category.description, category ,class:"text-success" %>
+        </div>
+
+        <div class="col-6 text-justify">
+          <% category.books.each_with_index do |book, i| %>
+              <% if i == 0 %>
+                  <%= link_to book.title, book ,class:"text-success" %>
+              <% else %>
+                  , <%= link_to book.title, book ,class:"text-success" %>
+              <% end %>
+          <% end %>
+        </div>
+    </div>
+  <%end%>
+
+
+
+</div>
+

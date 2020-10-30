@@ -29,11 +29,11 @@
           <%=customer.id %>
         </div>
         <div class="col-2 text-justify">
-          <%=customer.name %>
+          <%=link_to customer.name, customer, class:"text-success" %>
         </div>
 
         <div class="col-3 text-justify">
-          <%=customer.street_address %>, <%=customer.country%>
+          <%= link_to customer.street_address, customer, class:"text-success" %>
         </div>
 
         <div class="col-6 text-justify">
