@@ -3,7 +3,11 @@
 <h2 class="h2 text-primary"><%= @book.title %></h2>
   <div class="row">
     <div class="col-3">
-      <img src="<%= @book.cover_l  %>" class="img-fluid rounded" alt="Cover Large Image">
+      <% if @book.cover_l != ''%>
+        <img src="<%= @book.cover_l  %>" class="img-fluid rounded" alt="Cover Large Image">
+      <% else %>
+        <%= image_tag "no_image.png",  alt: "ERD diagram", class: "img-fluid rounded" %>
+      <% end %>
     </div>
   <div class="col-9">
       <h5 class="h5 text-dark">ISBN</h5>
@@ -33,11 +37,14 @@
       </p>
 
       <h5 class="h5 text-dark">Description</h5>
-      <p class="text-info"><%= @book.description%></p>
+       <% if @book.description %>
+        <p class="text-info"><%= @book.description%></p>
+      <% else %>
+        <p class="text-info">No Description for this book. Please click "READ BOOK" button for details</p>
+      <% end %>
+
 
       <a href="<%= @book.bookURL%>" target="_blank" class="btn btn-primary">Read Book</a>
-
-
     </div>
   </div>
 </div>
