@@ -11,12 +11,12 @@ class BooksController < ApplicationController
     wildcard_search = "%#{params[:keywords]}%"
     category_search = params[:category].to_s
 
-    @books = if category_search == "0"
-               Book.where("title LIKE ?", wildcard_search)
-             else
-               Book.joins(:category)
-                   .where("title LIKE ?", wildcard_search)
-                   .where("category_id = ?", category_search)
-             end
+    @pagy1, @books = pagy(if category_search == "0"
+                            Book.where("title LIKE ?", wildcard_search)
+                          else
+                            Book.joins(:category)
+                                .where("title LIKE ?", wildcard_search)
+                                .where("category_id = ?", category_search)
+                          end, items: 10)
   end
 end

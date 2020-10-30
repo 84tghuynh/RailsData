@@ -1,5 +1,67 @@
-<ul>
-<% @books.each do |book| %>
-  <li><%= link_to book.title, book %></li>
-<% end %>
-</ul>
+<h2 class="h2 text-primary">Found <span class="text-danger"><%= pluralize(@books.count, 'Book')  %></span>
+      when searching for keyword: <span class="text-danger"><%= params[:keywords]%></span>
+</h2>
+<div class="container pb-5">
+ <% if @books.count >= 10%>
+  <div class="row">
+    <div class="col">
+      <%= pagy_bootstrap_nav(@pagy1).sub('class="pagination"', 'class="pagination  justify-content-end"').html_safe  %>
+    </div>
+  </div>
+ <% end %>
+ <% if @books.count > 0%>
+  <div class="row rounded text-white bg-primary font-weight-bold text-uppercase py-2">
+    <div class="col-1">
+      No
+    </div>
+    <div class="col-2">
+      Cover
+    </div>
+    <div class="col-3">
+      Title
+    </div>
+    <div class="col-2">
+      Category
+    </div>
+    <div class="col-2">
+      Authors
+    </div>
+  </div>
+<%end%>
+  <% @books.each do |book| %>
+      <div class="row border-bottom border-secondary py-2">
+        <div class="col-1 text-justify">
+          <%=book.id %>
+        </div>
+        <div class="col-2 text-justify">
+          <% if book.cover_s != ''%>
+            <%=link_to image_tag(book.cover_s, class: "img-fluid rounded", alt:"Cover Small Image") , book %>
+          <% else %>
+            <%=link_to image_tag("no_image.png", size: "60", class: "img-fluid rounded", alt:"No Image") , book %>
+          <% end %>
+        </div>
+        <div class="col-3 text-justify">
+          <%=link_to book.title, book ,class:"text-success" %>
+        </div>
+        <div class="col-2 text-justify">
+          <%=link_to book.category.name, book.category %>
+        </div>
+        <div class="col-2 text-justify">
+          <% book.authors.each_with_index do |author, i| %>
+              <% if i == 0 %>
+                  <%= link_to author.name, author ,class:"text-success" %>
+              <% else %>
+                  , <%= link_to author.name, author ,class:"text-success" %>
+              <% end %>
+          <% end %>
+        </div>
+    </div>
+  <%end%>
+  <% if @books.count >= 10 %>
+  <div class="row pt-3">
+    <div class="col">
+      <%= pagy_bootstrap_nav(@pagy1).sub('class="pagination"', 'class="pagination  justify-content-end"').html_safe  %>
+    </div>
+  </div>
+  <% end %>
+</div>
