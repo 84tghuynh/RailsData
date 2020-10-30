@@ -36,6 +36,17 @@
           <% end %>
       </p>
 
+      <h5 class="h5 text-dark">Customers</h5>
+      <p class="text-info">
+           <% @book.customers.each_with_index do |customer, i| %>
+              <% if i == 0 %>
+                  <%= link_to customer.name, customer ,class:"text-success" %>
+              <% else %>
+                  , <%= link_to customer.name, customer ,class:"text-success" %>
+              <% end %>
+          <% end %>
+      </p>
+
       <h5 class="h5 text-dark">Description</h5>
        <% if @book.description %>
         <p class="text-info"><%= @book.description%></p>

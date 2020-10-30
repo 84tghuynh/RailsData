@@ -1,20 +1,39 @@
-<h2 class="h2 text-primary"><%=@customer.name%></h2>
-<div class="container pb-5">
+
+<div class="container pb-10 mb-10">
+  <h2 class="h2 text-primary"><%=@customer.name%></h2>
   <div class="row">
-    <div class="col">
-      <ul>
-        <li><%=@customer.latitude%>
-        <li><%=@customer.longtitude%>
-      </ul>
+    <div class="col-9">
+      <h5 class="h5 text-dark">Street Address</h5>
+      <p class="text-info"><%= @customer.street_address%></p>
+
+      <h5 class="h5 text-dark">State</h5>
+      <p class="text-info"><%= @customer.state%></p>
+
+      <h5 class="h5 text-dark">Country</h5>
+      <p class="text-info"><%= @customer.country%></p>
+
+      <h5 class="h5 text-dark">Postal Code</h5>
+      <p class="text-info"><%= @customer.postcode%></p>
+
+      <h5 class="h5 text-dark">Books</h5>
+      <p class="text-info">
+           <% @customer.books.each_with_index do |book, i| %>
+              <% if i == 0 %>
+                  <%= link_to book.title, book ,class:"text-success" %>
+              <% else %>
+                  , <%= link_to book.title, book ,class:"text-success" %>
+              <% end %>
+          <% end %>
+      </p>
+
     </div>
   </div>
-<div class="row">
-  <div id='map'></div>
-
+  <div class="row mb-10">
+    <div id='map'></div>
+  </div>
+  <div class="row my-10">
+  </div>
 </div>
-
-</div>
-
 
 
 <script>
